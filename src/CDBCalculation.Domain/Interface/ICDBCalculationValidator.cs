@@ -3,9 +3,9 @@ using CDBCalculation.Domain.ValueObjects.Shared;
 
 namespace CDBCalculation.Domain.Interface;
 
-public interface ICDBCalculationValidator
+public interface ICdbCalculationValidator
 {
 
-    Result<CDBCalculationResult> Validate(decimal value, int termMonths);
+    Result<CdbCalculationResult> Validate(decimal value, int termMonths);
 
 }

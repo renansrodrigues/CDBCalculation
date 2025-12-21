@@ -3,10 +3,10 @@ using CDBCalculation.Domain.ValueObjects.Shared;
 
 namespace CDBCalculation.Domain.Interface;
 
-public interface IRequestCDBCalculationService
+public interface IRequestCdbCalculationService
 {
 
-    Task<Result<CDBCalculationResult>> DoCDBCalculation(decimal value, int termMonths);
+    Task<Result<CdbCalculationResult>> DoCDBCalculation(decimal InitialValue, int termMonths);
 
 
 

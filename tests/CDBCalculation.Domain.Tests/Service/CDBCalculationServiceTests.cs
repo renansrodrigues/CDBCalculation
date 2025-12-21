@@ -7,16 +7,16 @@ using Moq;
 
 namespace CDBCalculation.Domain.Tests.Service;
 
-public class CDBCalculationServiceTests
+public class CdbCalculationServiceTests
 {
 
-    private readonly Mock<ICDBCalculationValidator> _validatorMock;    
-    private readonly CDBCalculationService _service;
+    private readonly Mock<ICdbCalculationValidator> _validatorMock;    
+    private readonly CdbCalculationService _service;
 
 
-    public CDBCalculationServiceTests()
+    public CdbCalculationServiceTests()
     {
-        _validatorMock = new Mock<ICDBCalculationValidator>();
+        _validatorMock = new Mock<ICdbCalculationValidator>();
         
 
         var strategy =  new ITaxCalculatorStrategy[] // Initialize strategies List
@@ -30,7 +30,7 @@ public class CDBCalculationServiceTests
         var strategyContext = new TaxCalculatorStrategyContext(strategy);
 
 
-        _service = new CDBCalculationService(_validatorMock.Object,strategyContext);
+        _service = new CdbCalculationService(_validatorMock.Object,strategyContext);
 
     }
 
@@ -44,7 +44,7 @@ public class CDBCalculationServiceTests
         // Arrange
         _validatorMock
              .Setup(v => v.Validate(InitialValue, termMonths))
-             .Returns(Result<CDBCalculationResult>.Failure("RedemptionValue must be positive"));
+             .Returns(Result<CdbCalculationResult>.Failure("RedemptionValue must be positive"));
       
 
         // Act
@@ -72,7 +72,7 @@ public class CDBCalculationServiceTests
         // Arrange
         _validatorMock
             .Setup(v => v.Validate(InitialValue, termMonths))
-            .Returns(Result<CDBCalculationResult>.Failure("termMonths must be greater than 1"));
+            .Returns(Result<CdbCalculationResult>.Failure("termMonths must be greater than 1"));
      
 
         // Act
@@ -99,7 +99,7 @@ public class CDBCalculationServiceTests
         // Arrange
         _validatorMock
             .Setup(v => v.Validate(10m, 6))
-            .Returns(Result<CDBCalculationResult>.SuccessValidation());
+            .Returns(Result<CdbCalculationResult>.SuccessValidation());
      
         // Act
         var result = await _service.DoCDBCalculation(10m, 6);
@@ -108,7 +108,7 @@ public class CDBCalculationServiceTests
         // Assert
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
-        Assert.IsType<CDBCalculationResult>(result.Value);
+        Assert.IsType<CdbCalculationResult>(result.Value);
         Assert.Null(result.Error);
 
 

@@ -12,7 +12,7 @@ public class TaxCalculatorStrategyContext
         _strategies = strategies;
     }
 
-    public Result<decimal> ExecuteStrategy(int months)
+    public Result<decimal> ExecuteStrategy(int months, decimal IncomeValue)
     {
         var strategy = _strategies.FirstOrDefault(s => s.IsApplicable(months));
 
@@ -21,7 +21,7 @@ public class TaxCalculatorStrategyContext
              Result<decimal>.Failure("There is no Tax.");
                     
           return Result<decimal>.Success(
-            strategy.Calculate(months));
+            strategy.Calculate(IncomeValue));
     }
 
 

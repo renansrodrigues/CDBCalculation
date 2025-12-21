@@ -6,7 +6,7 @@ public class Upto6MonthsTaxStrategy : ITaxCalculatorStrategy
 
     public bool IsApplicable(int month)
     {
-        return month > 1 && month <= 6;
+        return month > 0 && month <= 6;
     }
 
     public decimal Calculate(decimal IncomeValue)

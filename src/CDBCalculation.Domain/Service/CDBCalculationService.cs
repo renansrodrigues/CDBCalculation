@@ -5,14 +5,14 @@ using CDBCalculation.Domain.ValueObjects.Shared;
 
 namespace CDBCalculation.Domain.Service;
 
-public class CDBCalculationService : IRequestCDBCalculationService
+public class CdbCalculationService : IRequestCdbCalculationService
 {
-    private readonly ICDBCalculationValidator _cDBCalculationValidator;
+    private readonly ICdbCalculationValidator _cDBCalculationValidator;
     private readonly TaxCalculatorStrategyContext _taxCalculatorStrategy;
     const decimal CDI =(0.9M/ 100);
     const decimal TB = (108M / 100);
 
-    public CDBCalculationService(ICDBCalculationValidator cDBCalculationValidator,
+    public CdbCalculationService(ICdbCalculationValidator cDBCalculationValidator,
         TaxCalculatorStrategyContext taxCalculatorStrategy)
     {
         _cDBCalculationValidator = cDBCalculationValidator;
@@ -21,15 +21,21 @@ public class CDBCalculationService : IRequestCDBCalculationService
     }
 
 
-    public Task<Result<CDBCalculationResult>> DoCDBCalculation(decimal InitialValue, int termMonths)
+    public Task<Result<CdbCalculationResult>> DoCDBCalculation(decimal InitialValue, int termMonths)
     {
         
         var validationResult = _cDBCalculationValidator.Validate(InitialValue, termMonths);
 
         if (!validationResult.IsSuccess)
-            return Task.FromResult(
-                Result<CDBCalculationResult>.Failure(validationResult.Error));
-
+        {
+            if (validationResult.Error == null)
+            {
+                return Task.FromResult(Result<CdbCalculationResult>.Failure("Validation error occurred."));
+            }
+            return Task.FromResult(Result<CdbCalculationResult>.Failure(validationResult.Error));
+        }
+            
+       
         decimal monthlyRate = CDI * TB;
         decimal current = InitialValue; 
         decimal grossValue = 0;
@@ -41,14 +47,18 @@ public class CDBCalculationService : IRequestCDBCalculationService
         }
         
 
-        var taxResult = _taxCalculatorStrategy.ExecuteStrategy(termMonths);
+        var taxResult = _taxCalculatorStrategy.ExecuteStrategy(termMonths, current);
 
 
-        if (!taxResult.IsSuccess) { 
-        
-         return    new Task<Result<CDBCalculationResult>>(() =>
-            Result<CDBCalculationResult>.Failure(taxResult.Error)); 
-        
+        if (!taxResult.IsSuccess) {
+
+            if (taxResult.Error == null)
+            {
+                return Task.FromResult(Result<CdbCalculationResult>.Failure("Validation error occurred."));
+            }
+
+            return    new Task<Result<CdbCalculationResult>>(() =>
+            Result<CdbCalculationResult>.Failure(taxResult.Error));         
         }                           
         
             var tax = taxResult.Value;   
@@ -57,7 +67,7 @@ public class CDBCalculationService : IRequestCDBCalculationService
                           
 
         return Task.FromResult(
-            Result<CDBCalculationResult>.Success( new CDBCalculationResult(grossValue,NetValue)));                                      
+            Result<CdbCalculationResult>.Success( new CdbCalculationResult(grossValue,NetValue)));                                      
     }
 
 }

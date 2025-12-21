@@ -1,9 +1,9 @@
 ﻿namespace CDBCalculation.Domain.ValueObjects;
 
-public class CDBCalculationResult
+public class CdbCalculationResult
 {
 
-    public CDBCalculationResult(decimal _grossValue, decimal _netWorth)
+    public CdbCalculationResult(decimal _grossValue, decimal _netWorth)
     {
         GrossValue = _grossValue;
         NetWorth = _netWorth;   
