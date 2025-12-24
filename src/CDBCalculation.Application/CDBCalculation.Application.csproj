@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CDBCalculation.Domain\CDBCalculation.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

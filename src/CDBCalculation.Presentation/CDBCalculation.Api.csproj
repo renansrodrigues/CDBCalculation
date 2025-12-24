@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CDBCalculation.Application\CDBCalculation.Application.csproj" />
     <ProjectReference Include="..\CDBCalculation.Domain\CDBCalculation.Domain.csproj" />
   </ItemGroup>
 

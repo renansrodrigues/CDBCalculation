@@ -48,7 +48,7 @@ public class CdbCalculationServiceTests
       
 
         // Act
-        var result = await _service.DoCDBCalculation(InitialValue, termMonths);
+        var result = await _service.DoCDBCalculation(new Entities.CdbCalculation(InitialValue, termMonths));
 
 
         // Assert
@@ -76,7 +76,7 @@ public class CdbCalculationServiceTests
      
 
         // Act
-        var result = await _service.DoCDBCalculation(InitialValue, termMonths);
+        var result = await _service.DoCDBCalculation(new Entities.CdbCalculation(InitialValue, termMonths));
 
 
         // Assert
@@ -102,7 +102,7 @@ public class CdbCalculationServiceTests
             .Returns(Result<CdbCalculationResult>.SuccessValidation());
      
         // Act
-        var result = await _service.DoCDBCalculation(10m, 6);
+        var result = await _service.DoCDBCalculation(new Entities.CdbCalculation(10M, 6));
 
 
         // Assert

@@ -1,3 +1,5 @@
+using CDBCalculation.Application.AppServices;
+using CDBCalculation.Application.Interface;
 using CDBCalculation.Domain.Interface;
 using CDBCalculation.Domain.Service;
 using CDBCalculation.Domain.TaxCalculatorStrategies;
@@ -12,9 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Lifetime services registration for Dependency Injection  
-builder.Services.AddScoped<CdbCalculationService, CdbCalculationService>();
+builder.Services.AddScoped<ICdbCalculationAppService, CdbCalculationAppService>();
+builder.Services.AddScoped<ICdbCalculationService, CdbCalculationService>();
 builder.Services.AddScoped<ICdbCalculationValidator, CdbCalculationValidator>();
 // Strategies registration  
+builder.Services.AddScoped<TaxCalculatorStrategyContext>();
 builder.Services.AddScoped<ITaxCalculatorStrategy, Upto6MonthsTaxStrategy>();
 builder.Services.AddScoped<ITaxCalculatorStrategy, Upto12MonthsTaxStrategy>();
 builder.Services.AddScoped<ITaxCalculatorStrategy, Upto24MonthsTaxStrategy>();
@@ -35,4 +39,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

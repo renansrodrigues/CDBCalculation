@@ -1,11 +1,12 @@
-﻿using CDBCalculation.Domain.Interface;
+﻿using CDBCalculation.Domain.Entities;
+using CDBCalculation.Domain.Interface;
 using CDBCalculation.Domain.TaxCalculatorStrategies;
 using CDBCalculation.Domain.ValueObjects;
 using CDBCalculation.Domain.ValueObjects.Shared;
 
 namespace CDBCalculation.Domain.Service;
 
-public class CdbCalculationService : IRequestCdbCalculationService
+public class CdbCalculationService : ICdbCalculationService
 {
     private readonly ICdbCalculationValidator _cDBCalculationValidator;
     private readonly TaxCalculatorStrategyContext _taxCalculatorStrategy;
@@ -21,10 +22,10 @@ public class CdbCalculationService : IRequestCdbCalculationService
     }
 
 
-    public Task<Result<CdbCalculationResult>> DoCDBCalculation(decimal InitialValue, int termMonths)
+    public Task<Result<CdbCalculationResult>> DoCDBCalculation(CdbCalculation cdbCalculation)
     {
         
-        var validationResult = _cDBCalculationValidator.Validate(InitialValue, termMonths);
+        var validationResult = _cDBCalculationValidator.Validate(cdbCalculation.InitialValue, cdbCalculation.TermMonths);
 
         if (!validationResult.IsSuccess)
         {
@@ -37,17 +38,17 @@ public class CdbCalculationService : IRequestCdbCalculationService
             
        
         decimal monthlyRate = CDI * TB;
-        decimal current = InitialValue; 
+        decimal current = cdbCalculation.InitialValue; 
         decimal grossValue = 0;
         decimal NetValue = 0;
 
-        for (int i = 0; i < termMonths; i++) // GET MONTHLY RATE 
+        for (int i = 0; i < cdbCalculation.TermMonths; i++) // GET MONTHLY RATE 
         {
             current *= (1 + monthlyRate);   
         }
         
 
-        var taxResult = _taxCalculatorStrategy.ExecuteStrategy(termMonths, current);
+        var taxResult = _taxCalculatorStrategy.ExecuteStrategy(cdbCalculation.TermMonths, current);
 
 
         if (!taxResult.IsSuccess) {
