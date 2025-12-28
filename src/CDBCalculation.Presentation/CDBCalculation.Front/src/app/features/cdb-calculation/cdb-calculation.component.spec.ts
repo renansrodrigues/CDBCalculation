@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { CdbCalculationComponent } from './cdb-calculation.component';
@@ -53,20 +53,23 @@ describe('CdbCalculationComponent (Reactive Forms)', () => {
     expect(component.result?.netWorth).toBe(898.47);
   });
 
-  it('should handle api error', () => {
+  it('should handle api error', fakeAsync(() => {
     serviceSpy.calculate.and.returnValue(
       throwError(() => ({
-        error: { error: 'The value must be a positive number.' }
+        error: { error: 'An error occurred' }
       }))
     );
 
     component.form.setValue({
-      initialValue: -1,
-      termMonths: 12
+      initialValue: 1000,
+      termMonths: 10
     });
 
     component.submit();
+    tick();
 
-    expect(component.error).toBe('The value must be a positive number.');
-  });
+    expect(serviceSpy.calculate).toHaveBeenCalled();
+    expect(component.error).toBe('An error occurred');
+    expect(component.loading).toBeFalse();
+  }));
 });
