@@ -1,4 +1,4 @@
-# CDBCalculationCDB CALCULATION - INSTRUÇÕES DE EXECUÇÃO
+# CDB CALCULATION - INSTRUÇÕES DE EXECUÇÃO
 ======================================
 
 VISÃO GERAL
@@ -22,7 +22,7 @@ PRÉ-REQUISITOS
 EXECUÇÃO DO BACKEND
 -------------------
 1. Acesse a pasta do backend:
-   cd \CDBCalculation\src\CDBCalculation.Api
+   cd \src\CDBCalculation.Api
 
 2. Restaure os pacotes:
    dotnet restore
@@ -38,7 +38,7 @@ EXECUÇÃO DO BACKEND
 EXECUÇÃO DO FRONTEND
 --------------------
 1. Acesse a pasta do frontend:
-   cd \CDBCalculation\src\CDBCalculation.Front
+   cd \src\CDBCalculation.Front
 
 2. Instale as dependências:
    npm install
@@ -67,7 +67,7 @@ Backend:
 Frontend:
 ---------
 1. Acesse a pasta do frontend:
-   cd \CDBCalculation\src\CDBCalculation.Front
+   cd \src\CDBCalculation.Front
 
 2. Execute os testes:
    npm run test
