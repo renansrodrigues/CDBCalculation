@@ -18,11 +18,11 @@
             (input)="formatCurrency($event)"
             (blur)="onCurrencyBlur($event)"
             (focus)="onCurrencyFocus($event)"
-            [class.error-input]="f['redemptionValue']?.touched && f['redemptionValue']?.invalid">
+            [class.error-input]="f['redemptionValue'].touched && f['redemptionValue'].invalid">
         </div>
         
         <div class="error-message"
-             *ngIf="f['redemptionValue']?.touched && f['redemptionValue']?.invalid">
+             *ngIf="f['redemptionValue'].touched && f['redemptionValue'].invalid">
           <span *ngIf="f['redemptionValue']?.errors?.['required']">
             Redemption value is required
           </span>
@@ -39,10 +39,10 @@
           type="number" 
           placeholder="Enter investment term in months"
           formControlName="termMonths"
-          [class.error-input]="f['termMonths']?.touched && f['termMonths']?.invalid">
+          [class.error-input]="f['termMonths'].touched && f['termMonths'].invalid">
         
         <div class="error-message"
-             *ngIf="f['termMonths']?.touched && f['termMonths']?.invalid">
+             *ngIf="f['termMonths'].touched && f['termMonths'].invalid">
           <span *ngIf="f['termMonths']?.errors?.['required']">
             Term is required
           </span>

@@ -99,8 +99,7 @@ public class CdbCalculationAppServiceTests
         var result = await _appService.DoCDBCalculation(requestDto);
 
         // Assert
-        // Quando o resultado é null, ocorre NullReferenceException ao acessar result.IsSuccess
-        // que é capturada pelo catch e retorna a mensagem da exceção
+
         Assert.False(result.IsSuccess);
         Assert.Null(result.Value);
         Assert.Contains("Object reference", result.Error ?? string.Empty);

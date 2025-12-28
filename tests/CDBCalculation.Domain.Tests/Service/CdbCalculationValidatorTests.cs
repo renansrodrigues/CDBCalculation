@@ -96,8 +96,7 @@ public class CdbCalculationValidatorTests
         // Act
         var result = _validator.Validate(value, termMonths);
 
-        // Assert
-        // A validação verifica value primeiro, então deve retornar erro de value
+        // Assert        
         Assert.False(result.IsSuccess);
         Assert.Equal("The value must be a positive number.", result.Error);
     }

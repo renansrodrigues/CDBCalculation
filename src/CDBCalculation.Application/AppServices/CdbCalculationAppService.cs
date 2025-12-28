@@ -27,11 +27,11 @@ public class CdbCalculationAppService : ICdbCalculationAppService
 
             if (!result.IsSuccess)
             {
-                return Result<CdbCalculationResponseDto>.Failure(result.Error);
+                return Result<CdbCalculationResponseDto>.Failure(result.Error ?? "Error ,please try again later.");
             }
             if (result is null || result.Value is null)
             {
-                return Result<CdbCalculationResponseDto>.Failure("Error ,pleasy try again later.");
+                return Result<CdbCalculationResponseDto>.Failure("Error ,please try again later.");
             }
 
             var responseDto = CdbCalculationResponseDtoExtensions.ResponseToDto(result.Value);

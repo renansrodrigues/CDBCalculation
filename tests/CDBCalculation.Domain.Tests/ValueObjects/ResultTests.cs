@@ -316,11 +316,10 @@ public class ResultTests
         var value1 = new CdbCalculationResult(1000.00m, 900.00m);
         var value2 = new CdbCalculationResult(2000.00m, 1800.00m);
         var result = Result<CdbCalculationResult>.Success(value1);
-
-        // Act - Tentar criar um novo resultado (não podemos modificar diretamente pois é um record)
+        
         var newResult = Result<CdbCalculationResult>.Success(value2);
 
-        // Assert - O resultado original não deve mudar
+
         Assert.Equal(value1, result.Value);
         Assert.NotEqual(result, newResult);
     }
@@ -332,8 +331,7 @@ public class ResultTests
         var result1 = Result<int>.SuccessValidation();
         var result2 = Result<int>.SuccessValidation();
 
-        // Assert
-        // Como são records, a igualdade é baseada em valores, não em referência
+        // Assert        
         Assert.Equal(result1, result2);
         Assert.True(result1.IsSuccess);
         Assert.True(result2.IsSuccess);

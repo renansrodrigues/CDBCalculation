@@ -154,8 +154,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // CDI = 0.009, TB = 1.08, monthlyRate = 0.00972
-        // Após 1 mês: 1000 * 1.00972 = 1009.72
+   
         decimal expectedGrossValue = 1009.72m;
         Assert.Equal(expectedGrossValue, result.Value.GrossValue, 2);
     }
@@ -178,8 +177,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // CDI = 0.009, TB = 1.08, monthlyRate = 0.00972
-        // Após 12 meses: 1000 * (1.00972)^12 ≈ 1123.08
+     
         decimal expectedGrossValue = 1123.08m;
         Assert.Equal(expectedGrossValue, result.Value.GrossValue, 2);
     }
@@ -202,7 +200,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // Verificar que os valores estão arredondados para 2 casas decimais
+        
         var grossValueString = result.Value.GrossValue.ToString("F2");
         var netValueString = result.Value.NetWorth.ToString("F2");
 
@@ -217,7 +215,7 @@ public class CdbCalculationServiceTests
     {
         // Arrange
         decimal redemptionValue = 1000.00m;
-        int termMonths = 6; // Usa Upto6MonthsTaxStrategy (22.5%)
+        int termMonths = 6; 
 
         _validatorMock
             .Setup(v => v.Validate(redemptionValue, termMonths))
@@ -230,9 +228,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // NetValue deve ser GrossValue - Tax
-        // Tax = GrossValue * 0.225
-        // NetValue = GrossValue - (GrossValue * 0.225) = GrossValue * 0.775
+        
         decimal expectedNetValue = result.Value.GrossValue * 0.775m;
         expectedNetValue = Math.Round(expectedNetValue, 2);
 
@@ -244,7 +240,7 @@ public class CdbCalculationServiceTests
     {
         // Arrange
         decimal redemptionValue = 1000.00m;
-        int termMonths = 3; // Deve usar Upto6MonthsTaxStrategy (22.5%)
+        int termMonths = 3; 
 
         _validatorMock
             .Setup(v => v.Validate(redemptionValue, termMonths))
@@ -257,7 +253,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // Verificar que o imposto aplicado é 22.5%
+        
         decimal tax = result.Value.GrossValue - result.Value.NetWorth;
         decimal taxPercentage = (tax / result.Value.GrossValue) * 100m;
         Assert.Equal(22.5m, taxPercentage, 1);
@@ -268,7 +264,7 @@ public class CdbCalculationServiceTests
     {
         // Arrange
         decimal redemptionValue = 1000.00m;
-        int termMonths = 9; // Deve usar Upto12MonthsTaxStrategy (20%)
+        int termMonths = 9; 
 
         _validatorMock
             .Setup(v => v.Validate(redemptionValue, termMonths))
@@ -281,7 +277,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // Verificar que o imposto aplicado é 20%
+        
         decimal tax = result.Value.GrossValue - result.Value.NetWorth;
         decimal taxPercentage = (tax / result.Value.GrossValue) * 100m;
         Assert.Equal(20.0m, taxPercentage, 1);
@@ -292,7 +288,7 @@ public class CdbCalculationServiceTests
     {
         // Arrange
         decimal redemptionValue = 1000.00m;
-        int termMonths = 18; // Deve usar Upto24MonthsTaxStrategy (17.5%)
+        int termMonths = 18; 
 
         _validatorMock
             .Setup(v => v.Validate(redemptionValue, termMonths))
@@ -305,7 +301,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // Verificar que o imposto aplicado é 17.5%
+        
         decimal tax = result.Value.GrossValue - result.Value.NetWorth;
         decimal taxPercentage = (tax / result.Value.GrossValue) * 100m;
         Assert.Equal(17.5m, taxPercentage, 1);
@@ -316,7 +312,7 @@ public class CdbCalculationServiceTests
     {
         // Arrange
         decimal redemptionValue = 1000.00m;
-        int termMonths = 36; // Deve usar Over24MonthsTaxStrategy (15%)
+        int termMonths = 36; 
 
         _validatorMock
             .Setup(v => v.Validate(redemptionValue, termMonths))
@@ -329,7 +325,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // Verificar que o imposto aplicado é 15%
+        
         decimal tax = result.Value.GrossValue - result.Value.NetWorth;
         decimal taxPercentage = (tax / result.Value.GrossValue) * 100m;
         Assert.Equal(15.0m, taxPercentage, 1);
@@ -415,9 +411,9 @@ public class CdbCalculationServiceTests
     [Fact]
     public async Task DoCDBCalculation_Should_Calculate_Correctly_For_Exact_Boundary_Values()
     {
-        // Arrange - Testar exatamente no limite de 6 meses
+        // Arrange - 
         decimal redemptionValue = 1000.00m;
-        int termMonths = 6; // Limite superior de Upto6MonthsTaxStrategy
+        int termMonths = 6; 
 
         _validatorMock
             .Setup(v => v.Validate(redemptionValue, termMonths))
@@ -430,7 +426,7 @@ public class CdbCalculationServiceTests
         Assert.True(result.IsSuccess);
         Assert.NotNull(result.Value);
 
-        // Deve usar Upto6MonthsTaxStrategy (22.5%)
+        
         decimal tax = result.Value.GrossValue - result.Value.NetWorth;
         decimal taxPercentage = (tax / result.Value.GrossValue) * 100m;
         Assert.Equal(22.5m, taxPercentage, 1);
