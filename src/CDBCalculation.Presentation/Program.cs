@@ -24,6 +24,25 @@ builder.Services.AddScoped<ITaxCalculatorStrategy, Upto12MonthsTaxStrategy>();
 builder.Services.AddScoped<ITaxCalculatorStrategy, Upto24MonthsTaxStrategy>();
 builder.Services.AddScoped<ITaxCalculatorStrategy, Over24MonthsTaxStrategy>();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", policy =>
+    {
+        policy
+            .SetIsOriginAllowed(origin =>
+            {
+                if (string.IsNullOrWhiteSpace(origin))
+                    return false;
+
+                var uri = new Uri(origin);
+                return uri.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase);
+            })
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +52,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+
 app.UseHttpsRedirection();
+app.UseCors("AllowLocalhost");
 
 app.UseAuthorization();
 

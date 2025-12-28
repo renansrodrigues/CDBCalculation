@@ -17,8 +17,7 @@ public class CdbCalculationController : ControllerBase
         _calculationAppService = calculationAppService;
     }
 
-
-
+    
     [HttpPost("calculate")]
     public async Task<IActionResult> Calculate(
        [FromBody] CdbCalculationRequestDto requestDto)
