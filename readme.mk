@@ -22,7 +22,7 @@ PRÉ-REQUISITOS
 EXECUÇÃO DO BACKEND
 -------------------
 1. Acesse a pasta do backend:
-   cd \src\CDBCalculation.Api
+   cd src\CDBCalculation.Api
 
 2. Restaure os pacotes:
    dotnet restore
@@ -30,15 +30,15 @@ EXECUÇÃO DO BACKEND
 3. Execute a aplicação:
    dotnet run
 
-4. A API ficará disponível em:
-   https://localhost:60357
+4. A API ficará disponível conforme configurado no arquivo launchSettings.json 
+  exemplo https://localhost:60357
 
 ------------------------------------------------------------
 
 EXECUÇÃO DO FRONTEND
 --------------------
 1. Acesse a pasta do frontend:
-   cd \src\CDBCalculation.Front
+   cd src\CDBCalculation.Front
 
 2. Instale as dependências:
    npm install
@@ -56,18 +56,15 @@ EXECUÇÃO DOS TESTES UNITÁRIOS
 
 Backend:
 --------
-1. Acesse a pasta do backend:
-   
-   A partir da raiz da solução, execute:
-   cd \CDBCalculation
-   
+1. Acesse a raiz da solução:
+        
 2. Execute os testes:
    dotnet test
 
 Frontend:
 ---------
 1. Acesse a pasta do frontend:
-   cd \src\CDBCalculation.Front
+   cd src\CDBCalculation.Front
 
 2. Execute os testes:
    npm run test
