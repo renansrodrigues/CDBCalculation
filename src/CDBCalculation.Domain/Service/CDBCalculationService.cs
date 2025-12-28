@@ -63,9 +63,11 @@ public class CdbCalculationService : ICdbCalculationService
         }                           
         
             var tax = taxResult.Value;   
-            grossValue = current;
+            grossValue =  current;
             NetValue = grossValue - tax;
-                          
+
+          grossValue = Math.Round(grossValue, 2);
+          NetValue = Math.Round(NetValue, 2); 
 
         return Task.FromResult(
             Result<CdbCalculationResult>.Success( new CdbCalculationResult(grossValue,NetValue)));                                      
