@@ -39,7 +39,7 @@ public class CdbCalculationServiceTests
     [InlineData(0,4)]
     [InlineData(-10,6)]
     [InlineData(-5, 2)]
-    public async Task DoCDBCalculation_Should_Fail_When_RedemptionValue_IsNot_Positive(decimal InitialValue, int termMonths)
+    public async Task DoCDBCalculation_Should_Fail_When_InitialValue_IsNot_Positive(decimal InitialValue, int termMonths)
     {
         // Arrange
         _validatorMock
@@ -48,7 +48,7 @@ public class CdbCalculationServiceTests
       
 
         // Act
-        var result = await _service.DoCDBCalculation(new Entities.CdbCalculation(InitialValue, termMonths));
+        var result = await _service.DoCDBCalculation(new CdbCalculation(InitialValue, termMonths));
 
 
         // Assert
@@ -67,16 +67,16 @@ public class CdbCalculationServiceTests
     [Theory]
     [InlineData(1, -1)]
     [InlineData(5, 0)]    
-    public async Task DoCDBCalculation_Should_Fail_When_TermMonths_IsNot_Greater_Than_One(decimal InitialValue, int termMonths)
+    public async Task DoCDBCalculation_Should_Fail_When_TermMonths_IsNot_Greater_Than_One(decimal redemptionValue, int termMonths)
     {
         // Arrange
         _validatorMock
-            .Setup(v => v.Validate(InitialValue, termMonths))
+            .Setup(v => v.Validate(redemptionValue, termMonths))
             .Returns(Result<CdbCalculationResult>.Failure("termMonths must be greater than 1"));
      
 
         // Act
-        var result = await _service.DoCDBCalculation(new Entities.CdbCalculation(InitialValue, termMonths));
+        var result = await _service.DoCDBCalculation(new CdbCalculation(redemptionValue, termMonths));
 
 
         // Assert
@@ -86,7 +86,7 @@ public class CdbCalculationServiceTests
 
 
         _validatorMock.Verify(
-       v => v.Validate(InitialValue, termMonths),
+       v => v.Validate(redemptionValue, termMonths),
        Times.Once);
 
 
@@ -102,7 +102,7 @@ public class CdbCalculationServiceTests
             .Returns(Result<CdbCalculationResult>.SuccessValidation());
      
         // Act
-        var result = await _service.DoCDBCalculation(new Entities.CdbCalculation(10M, 6));
+        var result = await _service.DoCDBCalculation(new CdbCalculation(10M, 6));
 
 
         // Assert

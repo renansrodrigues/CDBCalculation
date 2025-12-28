@@ -1,6 +1,7 @@
 ﻿using CDBCalculation.Application.DTOs;
 using CDBCalculation.Application.Interface;
 using CDBCalculation.Domain.Interface;
+using CDBCalculation.Domain.ValueObjects;
 using CDBCalculation.Domain.ValueObjects.Shared;
 
 namespace CDBCalculation.Application.AppServices;
@@ -16,26 +17,32 @@ public class CdbCalculationAppService : ICdbCalculationAppService
 
     public async Task<Result<CdbCalculationResponseDto>> DoCDBCalculation(CdbCalculationRequestDto cdbCalculationRequestDto)
     {
-        var result = await 
+        try
+        {
+            var result = await
             _cdbCalculationService.
             DoCDBCalculation(CdbCalculationRequestDtoExtensions.
             DtoToDomain(cdbCalculationRequestDto));
 
 
-        if (!result.IsSuccess)
-        {
-            return Result<CdbCalculationResponseDto>.Failure(result.Error);                                                            
+            if (!result.IsSuccess)
+            {
+                return Result<CdbCalculationResponseDto>.Failure(result.Error);
+            }
+            if (result is null || result.Value is null)
+            {
+                return Result<CdbCalculationResponseDto>.Failure("Error ,pleasy try again later.");
+            }
+
+            var responseDto = CdbCalculationResponseDtoExtensions.ResponseToDto(result.Value);
+            var response = Result<CdbCalculationResponseDto>.Success(responseDto);
+
+            return response;
         }
-        if (result.Value is null)
+        catch (Exception ex)
         {
-            return Result<CdbCalculationResponseDto>.Failure("Error ,pleasy try again later.");
+            return Result<CdbCalculationResponseDto>.Failure(ex.Message);
         }
-
-        var responseDto = CdbCalculationResponseDtoExtensions.ResponseToDto(result.Value);
-        var response =  Result<CdbCalculationResponseDto>.Success(responseDto);
-
-        return response;
-
-
+      
     }
 }

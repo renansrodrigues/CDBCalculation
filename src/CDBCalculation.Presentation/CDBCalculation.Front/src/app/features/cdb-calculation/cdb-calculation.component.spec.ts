@@ -42,7 +42,7 @@ describe('CdbCalculationComponent (Reactive Forms)', () => {
     );
 
     component.form.setValue({
-      initialValue: 1000,
+      redemptionValue: 1000,
       termMonths: 12
     });
 
@@ -61,7 +61,7 @@ describe('CdbCalculationComponent (Reactive Forms)', () => {
     );
 
     component.form.setValue({
-      initialValue: 1000,
+      redemptionValue: 1000,
       termMonths: 10
     });
 

@@ -7,26 +7,26 @@
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="form">
       <div class="form-group">
-        <label for="initialValue">Initial Value</label>
+        <label for="redemptionValue">Redemption Value</label>
         <div class="input-wrapper">
           <span class="currency-symbol">R$</span>
           <input 
-            id="initialValue"
+            id="redemptionValue"
             type="text" 
             placeholder="0,00"
-            formControlName="initialValue"
+            formControlName="redemptionValue"
             (input)="formatCurrency($event)"
             (blur)="onCurrencyBlur($event)"
             (focus)="onCurrencyFocus($event)"
-            [class.error-input]="f['initialValue']?.touched && f['initialValue']?.invalid">
+            [class.error-input]="f['redemptionValue']?.touched && f['redemptionValue']?.invalid">
         </div>
         
         <div class="error-message"
-             *ngIf="f['initialValue']?.touched && f['initialValue']?.invalid">
-          <span *ngIf="f['initialValue']?.errors?.['required']">
-            Initial value is required
+             *ngIf="f['redemptionValue']?.touched && f['redemptionValue']?.invalid">
+          <span *ngIf="f['redemptionValue']?.errors?.['required']">
+            Redemption value is required
           </span>
-          <span *ngIf="f['initialValue']?.errors?.['min']">
+          <span *ngIf="f['redemptionValue']?.errors?.['min']">
             Value must be greater than 0
           </span>
         </div>

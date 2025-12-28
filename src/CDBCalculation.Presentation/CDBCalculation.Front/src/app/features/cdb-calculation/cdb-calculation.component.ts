@@ -25,7 +25,7 @@ export class CdbCalculationComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      initialValue: [
+      redemptionValue: [
         null,
         [Validators.required, Validators.min(0.01)]
       ],
@@ -44,7 +44,7 @@ export class CdbCalculationComponent implements OnInit {
     const numbersOnly = value.replace(/\D/g, '');
     
     if (numbersOnly === '') {
-      this.form.patchValue({ initialValue: null }, { emitEvent: false });
+      this.form.patchValue({ redemptionValue: null }, { emitEvent: false });
       input.value = '';
       return;
     }
@@ -53,7 +53,7 @@ export class CdbCalculationComponent implements OnInit {
     const numericValue = parseFloat(numbersOnly) / 100;
     
     
-    this.form.patchValue({ initialValue: numericValue }, { emitEvent: false });
+    this.form.patchValue({ redemptionValue: numericValue }, { emitEvent: false });
     
     
     const formatted = new Intl.NumberFormat('pt-BR', {
@@ -68,7 +68,7 @@ export class CdbCalculationComponent implements OnInit {
 
   onCurrencyBlur(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const value = this.form.get('initialValue')?.value;
+    const value = this.form.get('redemptionValue')?.value;
     
     if (value === null || value === undefined || isNaN(value)) {
       input.value = '';
@@ -88,7 +88,7 @@ export class CdbCalculationComponent implements OnInit {
 
   onCurrencyFocus(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const value = this.form.get('initialValue')?.value;
+    const value = this.form.get('redemptionValue')?.value;
     
     if (value !== null && value !== undefined && !isNaN(value)) {
       

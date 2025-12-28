@@ -19,7 +19,7 @@ describe('CdbCalculationService', () => {
   it('should call API and return calculation result', () => {
     const mockResponse = { grossValue: 1123.08, netWorth: 898.47 };
 
-    service.calculate({ initialValue: 1000, termMonths: 12 })
+    service.calculate({ redemptionValue: 1000, termMonths: 12 })
       .subscribe(res => {
         expect(res).toEqual(mockResponse);
       });

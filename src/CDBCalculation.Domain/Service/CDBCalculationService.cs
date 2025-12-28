@@ -1,5 +1,4 @@
-﻿using CDBCalculation.Domain.Entities;
-using CDBCalculation.Domain.Interface;
+﻿using CDBCalculation.Domain.Interface;
 using CDBCalculation.Domain.TaxCalculatorStrategies;
 using CDBCalculation.Domain.ValueObjects;
 using CDBCalculation.Domain.ValueObjects.Shared;
@@ -25,7 +24,7 @@ public class CdbCalculationService : ICdbCalculationService
     public Task<Result<CdbCalculationResult>> DoCDBCalculation(CdbCalculation cdbCalculation)
     {
         
-        var validationResult = _cDBCalculationValidator.Validate(cdbCalculation.InitialValue, cdbCalculation.TermMonths);
+        var validationResult = _cDBCalculationValidator.Validate(cdbCalculation.RedemptionValue, cdbCalculation.TermMonths);
 
         if (!validationResult.IsSuccess)
         {
@@ -38,7 +37,7 @@ public class CdbCalculationService : ICdbCalculationService
             
        
         decimal monthlyRate = CDI * TB;
-        decimal current = cdbCalculation.InitialValue; 
+        decimal current = cdbCalculation.RedemptionValue; 
         decimal grossValue = 0;
         decimal NetValue = 0;
 

@@ -1,4 +1,4 @@
 export interface CdbCalculationRequest {
-  initialValue: number;
+  redemptionValue: number;
   termMonths: number;
 }
